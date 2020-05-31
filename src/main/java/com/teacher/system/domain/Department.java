@@ -2,14 +2,14 @@ package com.teacher.system.domain;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
 public class Department {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     String departmentName;
-    Integer num;
+    Integer num = 0;
 }
