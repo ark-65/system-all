@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-public class DataVo {
+public class DataVo<T> {
     private Integer code;
     private String msg;
-    private Map<String, List<Object>> data;
+    private List<T> data;
 }

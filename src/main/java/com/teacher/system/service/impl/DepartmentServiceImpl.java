@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
 
@@ -70,18 +72,36 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @return
      */
     @Override
-    public DataVo patchDepartment(Department department) {
+    public DataVo editDepartment(Department department) {
         DataVo resultData = new DataVo();
         resultData.setCode(0);
         resultData.setMsg("修改成功");
         try {
             if (PropertyUtils.isNotNull(department.getId()) && PropertyUtils.isNotNull(department.getDepartmentName()) && PropertyUtils.isNull(department.getNum())) {
                 departmentRepository.save(department);
+            } else {
+                resultData.setCode(-1);
+                resultData.setMsg("参数缺省");
+                return resultData;
             }
         } catch (Exception e) {
             resultData.setCode(1);
             resultData.setMsg("修改失败");
             return resultData;
+        }
+        return resultData;
+    }
+
+    @Override
+    public DataVo getDepartmentAll() {
+        DataVo resultData = new DataVo();
+        resultData.setCode(0);
+        try {
+            List<Department> resultList = departmentRepository.findAll();
+            resultData.setData(resultList);
+        } catch (Exception e) {
+            resultData.setCode(1);
+            resultData.setMsg(e.toString());
         }
         return resultData;
     }
@@ -94,9 +114,14 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public DataPageVo getDepartment(Pageable pageable) {
         DataPageVo resultPage = new DataPageVo();
-        resultPage.setCode(0);
-        resultPage.setMsg("");
-        Page<Department> departmentPage = departmentRepository.findAll(pageable);
+        try {
+            resultPage.setCode(0);
+            Page<Department> departmentPage = departmentRepository.findAll(pageable);
+            resultPage.setData(departmentPage);
+        } catch (Exception e) {
+            resultPage.setCode(1);
+            resultPage.setMsg(e.toString());
+        }
         return resultPage;
     }
 }

@@ -29,7 +29,7 @@ public class DepartmentController {
     }
     @PatchMapping("/department")
     public DataVo updateDepartment(@RequestBody Department department) {
-        return departmentService.patchDepartment(department);
+        return departmentService.editDepartment(department);
     }
     @GetMapping("/department")
     public DataPageVo getDepartment(@PageableDefault(page = 0, size = 10, sort = {"id"}, direction = Sort.Direction.ASC)
