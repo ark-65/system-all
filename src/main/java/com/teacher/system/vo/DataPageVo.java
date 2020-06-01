@@ -9,5 +9,5 @@ import java.util.Map;
 public class DataPageVo<T> {
     private Integer code;
     private String msg;
-    private Page<T> data;
+    private Page<T> data = null;
 }

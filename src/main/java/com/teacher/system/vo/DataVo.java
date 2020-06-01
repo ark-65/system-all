@@ -9,5 +9,5 @@ import java.util.Map;
 public class DataVo<T> {
     private Integer code;
     private String msg;
-    private List<T> data;
+    private List<T> data = null;
 }
