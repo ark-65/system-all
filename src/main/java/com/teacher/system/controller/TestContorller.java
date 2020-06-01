@@ -14,6 +14,7 @@ import javax.persistence.StoredProcedureQuery;
 import java.util.List;
 
 @Slf4j
+@CrossOrigin
 @RestController
 public class TestContorller {
 

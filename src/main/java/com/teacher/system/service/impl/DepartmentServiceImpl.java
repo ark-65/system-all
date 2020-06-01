@@ -77,7 +77,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         resultData.setCode(0);
         resultData.setMsg("修改成功");
         try {
-            if (PropertyUtils.isNotNull(department.getId()) && PropertyUtils.isNotNull(department.getDepartmentName()) && PropertyUtils.isNull(department.getNum())) {
+            if (PropertyUtils.isNotNull(department.getId()) && PropertyUtils.isNotNull(department.getDepartmentName())) {
                 departmentRepository.save(department);
             } else {
                 resultData.setCode(-1);
