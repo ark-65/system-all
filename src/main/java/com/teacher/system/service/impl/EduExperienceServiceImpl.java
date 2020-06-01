@@ -18,8 +18,8 @@ public class EduExperienceServiceImpl implements EduExperienceService {
     EduExperienceInfoRepository eduExperienceInfoRepository;
 
     @Override
-    public DataVo addEduExperience(EduExperienceInfo eduExperienceInfo) {
-        DataVo resultData = new DataVo();
+    public DataVo<EduExperienceInfo> addEduExperience(EduExperienceInfo eduExperienceInfo) {
+        DataVo<EduExperienceInfo> resultData = new DataVo<>();
         resultData.setCode(0);
         resultData.setMsg("");
         try {
@@ -33,8 +33,8 @@ public class EduExperienceServiceImpl implements EduExperienceService {
     }
 
     @Override
-    public DataVo deleteEduExperience(Integer id) {
-        DataVo resultData = new DataVo();
+    public DataVo<EduExperienceInfo> deleteEduExperience(Integer id) {
+        DataVo<EduExperienceInfo> resultData = new DataVo<>();
         resultData.setCode(0);
         try {
             if (PropertyUtils.isNotNull(id)) {
@@ -52,8 +52,8 @@ public class EduExperienceServiceImpl implements EduExperienceService {
     }
 
     @Override
-    public DataVo editEduExperience(EduExperienceInfo eduExperienceInfo) {
-        DataVo resultData = new DataVo();
+    public DataVo<EduExperienceInfo> editEduExperience(EduExperienceInfo eduExperienceInfo) {
+        DataVo<EduExperienceInfo> resultData = new DataVo<>();
         resultData.setCode(0);
         resultData.setMsg("");
         try {
@@ -67,8 +67,8 @@ public class EduExperienceServiceImpl implements EduExperienceService {
     }
 
     @Override
-    public DataPageVo getEduExperience(Pageable pageable) {
-        DataPageVo resultPageData = new DataPageVo();
+    public DataPageVo<EduExperienceInfo> getEduExperience(Pageable pageable) {
+        DataPageVo<EduExperienceInfo> resultPageData = new DataPageVo<>();
         resultPageData.setCode(0);
         try {
             Page<EduExperienceInfo> eduExperienceInfoPage = eduExperienceInfoRepository.findAll(pageable);

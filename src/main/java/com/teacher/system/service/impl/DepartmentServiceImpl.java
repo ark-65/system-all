@@ -18,7 +18,7 @@ import java.util.List;
 public class DepartmentServiceImpl implements DepartmentService {
 
     @Autowired
-    private DepartmentRepository departmentRepository;
+    DepartmentRepository departmentRepository;
 
     /**
      * 添加部门
@@ -26,8 +26,8 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @return
      */
     @Override
-    public DataVo addDepartment(Department department) {
-        DataVo resultData = new DataVo();
+    public DataVo<Department> addDepartment(Department department) {
+        DataVo<Department> resultData = new DataVo<>();
         resultData.setCode(0);
         resultData.setMsg("创建成功");
         try {
@@ -52,8 +52,8 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @return
      */
     @Override
-    public DataVo deleteDepartment(Integer id) {
-        DataVo resultData = new DataVo();
+    public DataVo<Department> deleteDepartment(Integer id) {
+        DataVo<Department> resultData = new DataVo<>();
         resultData.setCode(0);
         resultData.setMsg("删除成功");
         try {
@@ -72,8 +72,8 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @return
      */
     @Override
-    public DataVo editDepartment(Department department) {
-        DataVo resultData = new DataVo();
+    public DataVo<Department> editDepartment(Department department) {
+        DataVo<Department> resultData = new DataVo<>();
         resultData.setCode(0);
         resultData.setMsg("修改成功");
         try {
@@ -93,8 +93,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public DataVo getDepartmentAll() {
-        DataVo resultData = new DataVo();
+    public DataVo<Department> getDepartmentAll() {
+        DataVo<Department> resultData = new DataVo<>();
         resultData.setCode(0);
         try {
             List<Department> resultList = departmentRepository.findAll();
@@ -112,8 +112,8 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @return
      */
     @Override
-    public DataPageVo getDepartment(Pageable pageable) {
-        DataPageVo resultPage = new DataPageVo();
+    public DataPageVo<Department> getDepartment(Pageable pageable) {
+        DataPageVo<Department> resultPage = new DataPageVo<>();
         try {
             resultPage.setCode(0);
             Page<Department> departmentPage = departmentRepository.findAll(pageable);

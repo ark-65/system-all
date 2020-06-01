@@ -7,13 +7,13 @@ import org.springframework.data.domain.Pageable;
 
 public interface DepartmentService {
 
-    public DataVo addDepartment(Department department);
+    public DataVo<Department> addDepartment(Department department);
 
-    public DataVo deleteDepartment(Integer id);
+    public DataVo<Department> deleteDepartment(Integer id);
 
-    public DataVo editDepartment(Department department);
+    public DataVo<Department> editDepartment(Department department);
 
-    public DataVo getDepartmentAll();
+    public DataVo<Department> getDepartmentAll();
 
-    public DataPageVo getDepartment(Pageable pageable);
+    public DataPageVo<Department> getDepartment(Pageable pageable);
 }

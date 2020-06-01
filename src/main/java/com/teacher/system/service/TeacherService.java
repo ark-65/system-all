@@ -1,14 +1,16 @@
 package com.teacher.system.service;
 
+import com.teacher.system.domain.TeacherInfo;
 import com.teacher.system.vo.DataPageVo;
 import com.teacher.system.vo.DataVo;
+import org.springframework.data.domain.Pageable;
 
 public interface TeacherService {
-    public DataVo addTeacher();
+    public DataVo<TeacherInfo> addTeacher(TeacherInfo teacherInfo);
 
-    public DataVo deleteTeacher();
+    public DataVo<TeacherInfo> deleteTeacher(Integer id);
 
-    public DataVo editTeacher();
+    public DataVo<TeacherInfo> editTeacher(TeacherInfo teacherInfo);
 
-    public DataPageVo getTeacher();
+    public DataPageVo<TeacherInfo> getTeacher(Pageable pageable);
 }

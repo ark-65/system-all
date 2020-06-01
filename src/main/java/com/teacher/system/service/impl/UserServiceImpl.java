@@ -19,12 +19,12 @@ public class UserServiceImpl implements UserService {
     JdbcTemplate jdbcTemplate;
 
     @Override
-    public DataVo login(UserMember userMember) {
+    public DataVo<Object> login(UserMember userMember) {
         String msg = "登录成功";
-        Integer code = 0;
+        int code = 0;
         String username = userMember.getUsername();
         String password = userMember.getPassword();
-        DataVo resultData = new DataVo();
+        DataVo<Object> resultData = new DataVo<>();
 
         String sql = "SELECT username FROM user_member WHERE 1=1 AND username = '" + username + "'";
         Map<String, Object> user = new HashMap<String, Object>();

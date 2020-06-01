@@ -6,11 +6,11 @@ import com.teacher.system.vo.DataVo;
 import org.springframework.data.domain.Pageable;
 
 public interface JobService {
-    public DataVo addJob(Job job);
+    public DataVo<Job> addJob(Job job);
 
-    public DataVo deleteJob(Integer id);
+    public DataVo<Job> deleteJob(Integer id);
 
-    public DataVo editJob(Job job);
+    public DataVo<Job> editJob(Job job);
 
-    public DataPageVo getJobs(Pageable pageable);
+    public DataPageVo<Job> getJobs(Pageable pageable);
 }

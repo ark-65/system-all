@@ -7,11 +7,11 @@ import org.springframework.data.domain.Pageable;
 
 
 public interface EduExperienceService {
-    public DataVo addEduExperience(EduExperienceInfo eduExperienceInfo);
+    public DataVo<EduExperienceInfo> addEduExperience(EduExperienceInfo eduExperienceInfo);
 
-    public DataVo deleteEduExperience(Integer id);
+    public DataVo<EduExperienceInfo> deleteEduExperience(Integer id);
 
-    public DataVo editEduExperience(EduExperienceInfo eduExperienceInfo);
+    public DataVo<EduExperienceInfo> editEduExperience(EduExperienceInfo eduExperienceInfo);
 
-    public DataPageVo getEduExperience(Pageable pageable);
+    public DataPageVo<EduExperienceInfo> getEduExperience(Pageable pageable);
 }
