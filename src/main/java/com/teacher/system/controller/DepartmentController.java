@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
+@CrossOrigin
 @RequestMapping("api/v1")
 public class DepartmentController {
 
@@ -20,19 +21,19 @@ public class DepartmentController {
     DepartmentService departmentService;
 
     @PutMapping("/department")
-    public DataVo addDepartment(@RequestBody Department department) {
+    public DataVo<Department> addDepartment(@RequestBody Department department) {
         return departmentService.addDepartment(department);
     }
     @DeleteMapping("/department")
-    public DataVo deleteDepartment(@RequestParam Integer id) {
+    public DataVo<Department> deleteDepartment(@RequestParam Integer id) {
         return departmentService.deleteDepartment(id);
     }
     @PatchMapping("/department")
-    public DataVo updateDepartment(@RequestBody Department department) {
-        return departmentService.patchDepartment(department);
+    public DataVo<Department> updateDepartment(@RequestBody Department department) {
+        return departmentService.editDepartment(department);
     }
     @GetMapping("/department")
-    public DataPageVo getDepartment(@PageableDefault(page = 0, size = 10, sort = {"id"}, direction = Sort.Direction.ASC)
+    public DataPageVo<Department> getDepartment(@PageableDefault(page = 0, size = 10, sort = {"id"}, direction = Sort.Direction.ASC)
                                             Pageable pageable) {
         return departmentService.getDepartment(pageable);
     }

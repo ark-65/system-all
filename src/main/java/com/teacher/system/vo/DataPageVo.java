@@ -1,12 +1,13 @@
 package com.teacher.system.vo;
 
 import lombok.Data;
+import org.springframework.data.domain.Page;
 
 import java.util.Map;
 
 @Data
-public class DataPageVo {
+public class DataPageVo<T> {
     private Integer code;
     private String msg;
-    private Map<String, Object> data;
+    private Page<T> data = null;
 }

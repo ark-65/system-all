@@ -6,24 +6,14 @@ import com.teacher.system.vo.DataVo;
 import org.springframework.data.domain.Pageable;
 
 public interface DepartmentService {
-    /**
-     * 用 put
-     * @param department
-     * @return
-     */
-    public DataVo addDepartment(Department department);
 
-    public DataVo deleteDepartment(Integer id);
+    public DataVo<Department> addDepartment(Department department);
 
-    /**
-     * 用patch
-     * @param department
-     * @return
-     */
-    public DataVo patchDepartment(Department department);
+    public DataVo<Department> deleteDepartment(Integer id);
 
-    /**
-     *
-     */
-    public DataPageVo getDepartment(Pageable pageable);
+    public DataVo<Department> editDepartment(Department department);
+
+    public DataVo<Department> getDepartmentAll();
+
+    public DataPageVo<Department> getDepartment(Pageable pageable);
 }
