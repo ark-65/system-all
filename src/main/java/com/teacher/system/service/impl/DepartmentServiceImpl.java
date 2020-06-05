@@ -6,6 +6,7 @@ import com.teacher.system.service.DepartmentService;
 import com.teacher.system.util.PropertyUtils;
 import com.teacher.system.vo.DataPageVo;
 import com.teacher.system.vo.DataVo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
 
@@ -39,8 +41,13 @@ public class DepartmentServiceImpl implements DepartmentService {
                 return resultData;
             }
         } catch (Exception e) {
-            resultData.setCode(1);
-            resultData.setMsg("创建失败");
+            if (e.toString().indexOf("constraint") > -1) {
+                resultData.setCode(2);
+                resultData.setMsg("该部门已存在");
+            } else {
+                resultData.setCode(1);
+                resultData.setMsg("创建失败");
+            }
             return resultData;
         }
         return resultData;

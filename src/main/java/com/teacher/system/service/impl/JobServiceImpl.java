@@ -21,8 +21,13 @@ public class JobServiceImpl implements JobService {
         try {
             jobRepository.save(job);
         } catch (Exception e) {
-            resultData.setCode(1);
-            resultData.setMsg(e.toString());
+            if (e.toString().indexOf("constraint") > -1) {
+                resultData.setCode(2);
+                resultData.setMsg("该职务已存在");
+            } else {
+                resultData.setCode(1);
+                resultData.setMsg("创建失败");
+            }
         }
         return resultData;
     }

@@ -19,19 +19,19 @@ public class JobTitleController {
     @Autowired
     JobTitleService jobTitleService;
 
-    @PutMapping("/jobTitle")
+    @PutMapping("/job-title")
     public DataVo<JobTitle> addDepartment(@RequestBody JobTitle jobTitle) {
         return jobTitleService.addJobTitle(jobTitle);
     }
-    @DeleteMapping("/jobTitle")
+    @DeleteMapping("/job-title")
     public DataVo<JobTitle> deleteDepartment(@RequestParam Integer id) {
         return jobTitleService.deleteJobTitle(id);
     }
-    @PatchMapping("/jobTitle")
+    @PatchMapping("/job-title")
     public DataVo<JobTitle> updateDepartment(@RequestBody  JobTitle jobTitle) {
         return jobTitleService.editJobTitle(jobTitle);
     }
-    @GetMapping("/jobTitle")
+    @GetMapping("/job-title")
     public DataPageVo<JobTitle> getDepartment(@PageableDefault(page = 0, size = 10, sort = {"id"}, direction = Sort.Direction.ASC)
                                                         Pageable pageable) {
         return jobTitleService.getJobTitle(pageable);
