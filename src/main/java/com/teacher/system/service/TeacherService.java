@@ -3,6 +3,7 @@ package com.teacher.system.service;
 import com.teacher.system.domain.TeacherInfo;
 import com.teacher.system.vo.DataPageVo;
 import com.teacher.system.vo.DataVo;
+import com.teacher.system.vo.TeacherPageVo;
 import org.springframework.data.domain.Pageable;
 
 public interface TeacherService {
@@ -12,5 +13,5 @@ public interface TeacherService {
 
     public DataVo<TeacherInfo> editTeacher(TeacherInfo teacherInfo);
 
-    public DataPageVo<TeacherInfo> getTeacher(Pageable pageable);
+    public TeacherPageVo getTeacher(Pageable pageable);
 }
