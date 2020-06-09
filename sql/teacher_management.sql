@@ -10,7 +10,7 @@
  Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 06/06/2020 01:52:24
+ Date: 10/06/2020 00:09:20
 */
 
 SET NAMES utf8mb4;
@@ -33,10 +33,10 @@ CREATE TABLE `department` (
 -- Records of department
 -- ----------------------------
 BEGIN;
-INSERT INTO `department` VALUES (0, '天人道', 3);
-INSERT INTO `department` VALUES (1, '人道', 3);
+INSERT INTO `department` VALUES (0, '天人道', 2);
+INSERT INTO `department` VALUES (1, '人道', 0);
 INSERT INTO `department` VALUES (2, '畜生道', 0);
-INSERT INTO `department` VALUES (3, '修罗道', 4);
+INSERT INTO `department` VALUES (3, '修罗道', 0);
 INSERT INTO `department` VALUES (4, '饿鬼道', 0);
 INSERT INTO `department` VALUES (5, '地狱道1', 0);
 INSERT INTO `department` VALUES (6, '啦啦道', 0);
@@ -58,8 +58,18 @@ CREATE TABLE `edu_experience_info` (
                                        `education` varchar(255) NOT NULL COMMENT '学历',
                                        `teacher_id` int(11) NOT NULL,
                                        `edu_type` varchar(255) NOT NULL COMMENT '学历类型 1.博士 2.硕士 3.本科 4.大专 5.高中 6.中专 7.初中 8.小学 9.没上过学',
-                                       PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='教育经历';
+                                       PRIMARY KEY (`id`),
+                                       KEY `teacher_name_fk2` (`teacher_id`),
+                                       CONSTRAINT `teacher_name_fk2` FOREIGN KEY (`teacher_id`) REFERENCES `teacher_info` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='教育经历';
+
+-- ----------------------------
+-- Records of edu_experience_info
+-- ----------------------------
+BEGIN;
+INSERT INTO `edu_experience_info` VALUES (3, '2020-06-09', '2020-06-09', '麻省理工附属中学', '初中', 28, '初中');
+INSERT INTO `edu_experience_info` VALUES (4, '2020-06-09', '2020-06-09', '剑桥附属小学', '高中', 29, '高中');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for hibernate_sequence
@@ -93,12 +103,12 @@ CREATE TABLE `job` (
 -- Records of job
 -- ----------------------------
 BEGIN;
-INSERT INTO `job` VALUES (1, '正院长', 0);
+INSERT INTO `job` VALUES (1, '正院长', 1);
 INSERT INTO `job` VALUES (2, '副院长', 0);
 INSERT INTO `job` VALUES (3, '正系书记', 0);
 INSERT INTO `job` VALUES (4, '副系书记', 0);
 INSERT INTO `job` VALUES (5, '正科长', 0);
-INSERT INTO `job` VALUES (6, '副科长', 0);
+INSERT INTO `job` VALUES (6, '副科长', 1);
 COMMIT;
 
 -- ----------------------------
@@ -117,7 +127,7 @@ CREATE TABLE `job_title` (
 -- Records of job_title
 -- ----------------------------
 BEGIN;
-INSERT INTO `job_title` VALUES (9, '一级教授', 0);
+INSERT INTO `job_title` VALUES (9, '一级教授', 1);
 INSERT INTO `job_title` VALUES (10, '二级教授', 0);
 INSERT INTO `job_title` VALUES (11, '三级教授', 0);
 INSERT INTO `job_title` VALUES (12, '四级教授', 0);
@@ -129,7 +139,7 @@ INSERT INTO `job_title` VALUES (17, '九级讲师', 0);
 INSERT INTO `job_title` VALUES (18, '十级讲师', 0);
 INSERT INTO `job_title` VALUES (19, '十一级助教', 0);
 INSERT INTO `job_title` VALUES (20, '十二级助教', 0);
-INSERT INTO `job_title` VALUES (21, '十三级助教', 0);
+INSERT INTO `job_title` VALUES (21, '十三级助教', 1);
 COMMIT;
 
 -- ----------------------------
@@ -141,28 +151,66 @@ CREATE TABLE `rap_record` (
                               `teacher_id` int(11) DEFAULT NULL,
                               `rap_type` varchar(255) DEFAULT NULL COMMENT '奖惩类型',
                               `remarks` varchar(255) DEFAULT NULL COMMENT '奖惩备注',
+                              `create_time` varchar(255) DEFAULT NULL COMMENT '创建时间',
+                              PRIMARY KEY (`id`),
+                              KEY `teacher_name_fk` (`teacher_id`),
+                              CONSTRAINT `teacher_name_fk` FOREIGN KEY (`teacher_id`) REFERENCES `teacher_info` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='奖惩记录\n';
+
+-- ----------------------------
+-- Records of rap_record
+-- ----------------------------
+BEGIN;
+INSERT INTO `rap_record` VALUES (3, 28, '奖励', '拾金不昧,为了失主丢失的2毛钱在十字路口苦等三天三夜', '2020-02-01');
+INSERT INTO `rap_record` VALUES (4, 28, '奖励', '范德萨范德萨范德萨 发生', '2020-06-10');
+INSERT INTO `rap_record` VALUES (5, 29, '惩罚', '抢学生的棒棒糖', '2020-06-10');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for statistics
+-- ----------------------------
+DROP TABLE IF EXISTS `statistics`;
+CREATE TABLE `statistics` (
+                              `id` int(11) NOT NULL,
+                              `dept_id` int(11) DEFAULT NULL,
+                              `dept_name` varchar(255) DEFAULT NULL,
+                              `dept_num` int(11) DEFAULT NULL,
+                              `jobt_id` int(11) DEFAULT NULL,
+                              `jobt_name` varchar(255) DEFAULT NULL,
+                              `jobt_num` int(11) DEFAULT NULL,
                               PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='奖惩记录\n';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for teacher_family_member
 -- ----------------------------
 DROP TABLE IF EXISTS `teacher_family_member`;
 CREATE TABLE `teacher_family_member` (
-                                         `id` int(11) NOT NULL AUTO_INCREMENT,
+                                         `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
                                          `teacher_id` int(11) NOT NULL,
                                          `relationship` varchar(255) DEFAULT NULL COMMENT '与教师关系',
                                          `member_name` varchar(255) DEFAULT NULL COMMENT '家庭成员姓名',
                                          `contact` varchar(255) DEFAULT NULL COMMENT '联系方式',
-                                         PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='家庭关系';
+                                         PRIMARY KEY (`id`),
+                                         KEY `teacher_name_fkteacher_name_fk3` (`teacher_id`),
+                                         CONSTRAINT `teacher_name_fkteacher_name_fk3` FOREIGN KEY (`teacher_id`) REFERENCES `teacher_info` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='家庭关系';
+
+-- ----------------------------
+-- Records of teacher_family_member
+-- ----------------------------
+BEGIN;
+INSERT INTO `teacher_family_member` VALUES (1, 28, '父亲', '张大壮', '13333333333');
+INSERT INTO `teacher_family_member` VALUES (2, 28, '母亲', '王钢蛋', '13333333333');
+INSERT INTO `teacher_family_member` VALUES (3, 29, 'fff', 'fff', '13333333333');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for teacher_info
 -- ----------------------------
 DROP TABLE IF EXISTS `teacher_info`;
 CREATE TABLE `teacher_info` (
-                                `id` int(11) unsigned zerofill NOT NULL AUTO_INCREMENT,
+                                `id` int(11) NOT NULL AUTO_INCREMENT,
                                 `dept_id` int(11) DEFAULT NULL COMMENT '所在部门',
                                 `job_title_id` int(11) DEFAULT NULL COMMENT '所属职称',
                                 `job_id` int(11) DEFAULT NULL COMMENT '所属职务',
@@ -176,24 +224,14 @@ CREATE TABLE `teacher_info` (
                                 CONSTRAINT `teacher_info_ibfk_1` FOREIGN KEY (`dept_id`) REFERENCES `department` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
                                 CONSTRAINT `teacher_info_ibfk_2` FOREIGN KEY (`job_title_id`) REFERENCES `job_title` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
                                 CONSTRAINT `teacher_info_ibfk_3` FOREIGN KEY (`job_id`) REFERENCES `job` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COMMENT='教师信息';
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COMMENT='教师信息';
 
 -- ----------------------------
 -- Records of teacher_info
 -- ----------------------------
 BEGIN;
-INSERT INTO `teacher_info` VALUES (00000000000, 0, NULL, 2, '凯尔', '2@qq.com', '13888888888');
-INSERT INTO `teacher_info` VALUES (00000000001, 3, NULL, 3, '莫甘娜', '3@qq.com', '13333333333');
-INSERT INTO `teacher_info` VALUES (00000000011, 5, NULL, 2, '1', '1', '1');
-INSERT INTO `teacher_info` VALUES (00000000012, 4, NULL, 2, '1', '1', '1');
-INSERT INTO `teacher_info` VALUES (00000000013, 3, NULL, 2, '1', '1', '1');
-INSERT INTO `teacher_info` VALUES (00000000014, 3, NULL, 2, '1', '1', '1');
-INSERT INTO `teacher_info` VALUES (00000000020, 3, NULL, 2, '1', '1', '1');
-INSERT INTO `teacher_info` VALUES (00000000022, 3, NULL, 2, '1', '1', '1');
-INSERT INTO `teacher_info` VALUES (00000000023, 3, NULL, 2, '1', '1', '1');
-INSERT INTO `teacher_info` VALUES (00000000024, 3, NULL, 2, '1', '1', '1');
-INSERT INTO `teacher_info` VALUES (00000000025, 3, NULL, 2, '1', '1', '1');
-INSERT INTO `teacher_info` VALUES (00000000026, 3, NULL, 2, '1', '1', '1');
+INSERT INTO `teacher_info` VALUES (28, 0, 9, 1, '伊泽瑞尔', '2333@qq.com', '13333333333');
+INSERT INTO `teacher_info` VALUES (29, 0, 21, 6, '钱闷闷', 'qianmenmen@163.com', '13333333333');
 COMMIT;
 
 -- ----------------------------

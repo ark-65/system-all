@@ -198,4 +198,4 @@ local.properties
 hs_err_pid*
 
 #config application
-application.yaml
+*.yaml

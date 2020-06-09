@@ -16,4 +16,5 @@ public class RapRecord {
     Integer teacherId;
     String rapType;
     String remarks;
+    String createTime;
 }
