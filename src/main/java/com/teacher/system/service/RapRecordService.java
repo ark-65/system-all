@@ -3,6 +3,7 @@ package com.teacher.system.service;
 import com.teacher.system.domain.RapRecord;
 import com.teacher.system.vo.DataPageVo;
 import com.teacher.system.vo.DataVo;
+import com.teacher.system.vo.TeacherPageVo;
 import org.springframework.data.domain.Pageable;
 
 public interface RapRecordService {
@@ -12,5 +13,5 @@ public interface RapRecordService {
 
     public DataVo<RapRecord> editRapRecord(RapRecord rapRecord);
 
-    public DataPageVo<RapRecord> getRapRecord(Pageable pageable);
+    public TeacherPageVo getRapRecord(Pageable pageable);
 }
